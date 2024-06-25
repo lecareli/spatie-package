@@ -8,8 +8,8 @@
             <h5>Roles</h5>
 
             <ul class="list-group">
-                @forelse ($roles as $roles)
-                    <li class="list-group-item">{{ $role->name }}</li>
+                @forelse ($roles as $role)
+                    <li class="list-group-item">{{ Str::ucfirst($role->name) }}</li>
                 @empty
                     <li class="list-group-item">No roles created, yet</li>
                 @endforelse
