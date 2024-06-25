@@ -17,8 +17,18 @@ class RolePermissionController extends Controller
         });
 
         return view('role.permission.create', [
-        'role' => $role,
-        'permissions' => $permissions
+            'role' => $role,
+            'permissions' => $permissions
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        $role = Role::findById($request->role_id);
+        $permission = Permission::findById($request->permission_id);
+
+        $role->givePermissionTo($permission);
+
+        return redirect()->route('admin.index');
     }
 }

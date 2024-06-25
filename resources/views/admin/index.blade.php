@@ -27,7 +27,17 @@
 
                         <ul class="list-group">
                             @forelse ($role->permissions as $permission)
-                                <li class="list-group-item"> {{ Str::ucfirst($permission->name) }}</li>
+                                <li class="list-group-item d-flex justify-content-between">
+
+                                    <span>{{ Str::ucfirst($permission->name) }}</span>
+
+                                    <form action="{{ route('role.permission.delete', [$role->id, $permission->id])}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-warning btn-sm">Revoke</button>
+                                    </form>
+                                    
+                                </li>
                             @empty
                                 <li class="list-group-item">No permissions to this role</li>
                             @endforelse

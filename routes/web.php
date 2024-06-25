@@ -19,8 +19,9 @@ Route::group(['middleware' => 'role:super-admin'], function(){
     //Permissions
 
     //RolesPermissions
-    Route::get('/roles/permissions/create/{role}', [RolePermissionController::class, 'create'])->name('role.permission.create');    
-
+    Route::get('/roles/permissions/create/{role}', [RolePermissionController::class, 'create'])->name('role.permission.create');
+    Route::post('/roles/permissions', [RolePermissionController::class, 'store'])->name('role.permission.store');
+    Route::delete('/roles/permissions/{role}/{permission}', [RolePermissionController::class, 'destroy'])->name('role.permission.delete');
     //Users
 
 });
