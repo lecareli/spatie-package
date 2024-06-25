@@ -31,4 +31,10 @@ class RolePermissionController extends Controller
 
         return redirect()->route('admin.index');
     }
+
+    public function destroy(Role $role, Permission $permission)
+    {
+        $role->revokePermissionTo($permission);
+        return redirect()->route('admin.index');
+    }
 }
