@@ -7,6 +7,8 @@
         <div class="col-3">
             <h5>Roles</h5>
 
+            <a href="{{ route('role.create') }}" class="btn btn-primary">Create Role</a>
+
             <ul class="list-group">
                 @forelse ($roles as $role)
                     <li class="list-group-item">
@@ -19,6 +21,7 @@
                                 <li class="list-group-item">No permissions to this role</li>
                             @endforelse
                         </ul>
+
                     </li>
                 @empty
                     <li class="list-group-item">No roles created, yet</li>
