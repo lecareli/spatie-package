@@ -3,30 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-    public function create(Role $role)
+    public function create()
     {
-        $permissions = Permission::all();
-        $permissions = $permissions->filter(function($permission) use ($role){
-            return !$role->hasPermissionTo($permission);
-        });
-
-        return view('role.create', [
-            'permissions' => $permissions,
-            'role' => $role,
-        ]);
+        return view('role.create');
     }
 
     public function store(Request $request)
     {
-        $role = Role::findById($request->role_id);
-        $permission = Permission::findById($request->permission_id);
-
-        $role->givePermissionTo($permission);
+        $request->validate([
+            'name' => 'required|string|max:255|unique:roles,name',
+        ]);
 
         Role::create([
             'name' => $request->name,
