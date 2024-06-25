@@ -36,7 +36,7 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-warning btn-sm">Revoke</button>
                                     </form>
-                                    
+
                                 </li>
                             @empty
                                 <li class="list-group-item">No permissions to this role</li>
@@ -52,6 +52,27 @@
         </div>
         <div class="col-6">
             <h5>Permissions</h5>
+
+            <a href="{{ route('permission.create') }}" class="btn btn-primary">Create Permission</a>
+
+            <ul class="list-group">
+                @forelse ($permissions as $permission)
+                    <li class="list-group-item d-flex justify-content-between">
+
+                        <span>{{ Str::ucfirst($permission->name) }}</span>
+
+                        <form action="{{ route('permission.delete', $permission->id) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+
+                    </li>
+                @empty
+                    <li class="list-group-item">No permissions to this role</li>
+                @endforelse
+            </ul>
+
         </div>
     </div>
 

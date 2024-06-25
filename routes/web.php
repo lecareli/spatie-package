@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RolePermissionController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,7 @@ Route::group(['middleware' => 'role:super-admin'], function(){
     Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('role.delete');
 
     //Permissions
+    Route::delete('/permissions/{permission}', [PermissionController::class, 'destroy'])->name('permission.delete');
 
     //RolesPermissions
     Route::get('/roles/permissions/create/{role}', [RolePermissionController::class, 'create'])->name('role.permission.create');
