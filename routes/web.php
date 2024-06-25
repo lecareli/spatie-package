@@ -12,6 +12,7 @@ Route::group(['middleware' => 'role:super-admin'], function(){
 
     //Roles
     Route::get('/role/create', [RoleController::class, 'create'])->name('role.create');
+    Route::post('/role', [RoleController::class, 'store'])->name('role.store');
 
     //Permissions
 
