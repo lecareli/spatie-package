@@ -30,9 +30,11 @@ Route::group(['middleware' => 'role:super-admin'], function(){
     Route::delete('/roles/permissions/{role}/{permission}', [RolePermissionController::class, 'destroy'])->name('role.permission.delete');
 
     //Users
-    Route::get('/model/role/create/{user}', [ModelRoleController::class, 'create'])->name('model.role.create');
-    Route::post('/model/role', [ModelRoleController::class, 'store'])->name('model.role.store');
-    Route::delete('/model/role/{user}/{role}', [ModelRoleController::class, 'destroy'])->name('model.role.delete');
+    Route::get('/model/roles/create/{user}', [ModelRoleController::class, 'create'])->name('model.role.create');
+    Route::post('/model/roles', [ModelRoleController::class, 'store'])->name('model.role.store');
+    Route::delete('/model/roles/{user}/{role}', [ModelRoleController::class, 'destroy'])->name('model.role.delete');
 
     Route::get('/model/permissions/create/{user}', [ModelPermissionController::class, 'create'])->name('model.permission.create');
+    Route::post('/model/permissions', [ModelPermissionController::class, 'store'])->name('model.permission.store');
+    Route::delete('/model/permissions/{user}/{permission}', [ModelPermissionController::class, 'destroy'])->name('model.permission.delete');
 });

@@ -116,12 +116,29 @@
                             </div>
 
                             <div>
-                                <h6>
-                                    Permissions
-                                    <small>
-                                        <a href="{{ route('model.permission.create', $user->id) }}" >Add Permission</a>
-                                    </small>
-                                </h6>
+                                <ul class="list-group">
+                                    <h6>
+                                        Permissions
+                                        <small>
+                                            <a href="{{ route('model.permission.create', $user->id) }}" >Add Permission</a>
+                                        </small>
+                                    </h6>
+
+                                    @forelse ($user->permissions as $permission)
+                                        <li class="list-group-item d-flex gap-2">
+                                            <span>{{ $permission->name }}</span>
+
+                                            <form action="{{ route('model.permission.delete', [$user->id, $permission->id]) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit" class=" btn btn-warning btn-sm">Revoke</button>
+                                            </form>
+                                        </li>
+                                    @empty
+                                        <li class="list-group-item">No role added to this user, yet.</li>
+                                    @endforelse
+                                </ul>
                             </div>
                         </li>
                     @endif
