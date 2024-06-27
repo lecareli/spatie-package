@@ -81,6 +81,54 @@
     <div class="row">
         <div class="col-12">
             <h5>Users</h5>
+
+            <ul class="list-group">
+                @forelse ($users as $user)
+                    @if(!$user->hasRole('super-admin'))
+                        <strong>{{ $user->name }}</strong>
+                        <li class="list-group-item d-flex justify-content-between mb-3">
+
+                            <div>
+                                <ul class="list-group">
+
+                                    <h6>
+                                        Roles
+                                        <small>
+                                            <a href="{{ route('model.role.create', $user->id) }}" >Add Role</a>
+                                        </small>
+                                    </h6>
+
+                                    @forelse ($user->roles as $role)
+                                        <li class="list-group-item d-flex gap-2">
+                                            {{ $role->name }}
+
+                                            <form action="{{ route('model.role.delete', [$user->id, $role->id]) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit" class=" btn btn-warning btn-sm">Revoke</button>
+                                            </form>
+                                        </li>
+                                    @empty
+                                        <li class="list-group-item">No role added to this user, yet.</li>
+                                    @endforelse
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h6>
+                                    Permissions
+                                    <small>
+                                        <a href="{{ route('model.permission.create', $user->id) }}" >Add Permission</a>
+                                    </small>
+                                </h6>
+                            </div>
+                        </li>
+                    @endif
+                @empty
+                    <li class="list-group-item">No users created, yet</li>
+                @endforelse
+            </ul>
         </div>
     </div>
 @endsection
