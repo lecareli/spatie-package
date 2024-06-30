@@ -25,8 +25,8 @@ class Post extends Model
     ];
 
     protected $casts = [
-        'is_published',
-        'published_at',
+        'is_published' => 'boolean',
+        'published_at' => 'datetime',
     ];
 
     public function user() : BelongsTo
@@ -41,7 +41,7 @@ class Post extends Model
 
     public function tags() : BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'post_tag');
     }
 
     public function comments(): HasMany
@@ -57,5 +57,10 @@ class Post extends Model
     public function schedule() : HasOne
     {
         return $this->hasOne(PostSchedule::class);
+    }
+
+    public function seo() : HasOne
+    {
+        return $this->hasOne(SEO::class);
     }
 }

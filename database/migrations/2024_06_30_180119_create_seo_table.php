@@ -12,9 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post_schedules', function (Blueprint $table) {
+        Schema::create('seo', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('schedule_at');
+            $table->string('meta_title');
+            $table->string('meta_description');
+            $table->text('keywords');
             $table->foreignIdFor(Post::class);
             $table->timestamps();
         });
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_schedules');
+        Schema::dropIfExists('seo');
     }
 };
