@@ -49,7 +49,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function post(): BelongsTo
+    public function post() : BelongsTo
     {
         return $this->belongsTo(Post::class);
     }
@@ -57,5 +57,10 @@ class User extends Authenticatable
     public function comments(): BelongsTo
     {
         return $this->belongsTo(Comment::class);
+    }
+
+    public function media() : BelongsTo
+    {
+        return $this->belongsTo(Media::class);
     }
 }

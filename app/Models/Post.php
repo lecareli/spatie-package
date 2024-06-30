@@ -35,4 +35,9 @@ class Post extends Model
     {
         return $this->belongsTo(Comment::class);
     }
+
+    public function medias() : BelongsTo
+    {
+        return $this->belongsTo(Media::class);
+    }
 }
