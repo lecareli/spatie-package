@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Cache\Events\RetrievingKey;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -49,18 +50,18 @@ class User extends Authenticatable
         ];
     }
 
-    public function post() : BelongsTo
+    public function posts() : HasMany
     {
-        return $this->belongsTo(Post::class);
+        return $this->hasMany(Post::class);
     }
 
-    public function comments(): BelongsTo
+    public function comments(): HasMany
     {
-        return $this->belongsTo(Comment::class);
+        return $this->hasMany(Comment::class);
     }
 
-    public function media() : BelongsTo
+    public function media() : HasMany
     {
-        return $this->belongsTo(Media::class);
+        return $this->hasMany(Media::class);
     }
 }

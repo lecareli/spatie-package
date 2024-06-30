@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Post extends Model
@@ -17,27 +19,43 @@ class Post extends Model
         'content',
         'excerpt',
         'is_published',
+        'published_at',
         'user_id',
         'category_id',
     ];
 
-    public function user(): HasOne
+    protected $casts = [
+        'is_published',
+        'published_at',
+    ];
+
+    public function user() : BelongsTo
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function category(): HasOne
+    public function category() : BelongsTo
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
-    public function comments(): BelongsTo
+    public function tags() : BelongsToMany
     {
-        return $this->belongsTo(Comment::class);
+        return $this->belongsToMany(Tag::class);
     }
 
-    public function medias() : BelongsTo
+    public function comments(): HasMany
     {
-        return $this->belongsTo(Media::class);
+        return $this->hasMany(Comment::class);
+    }
+
+    public function media() : HasMany
+    {
+        return $this->hasMany(Media::class);
+    }
+
+    public function schedule() : HasOne
+    {
+        return $this->hasOne(PostSchedule::class);
     }
 }

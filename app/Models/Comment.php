@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -18,13 +19,17 @@ class Comment extends Model
         'user_id',
     ];
 
-    public function posts(): HasOne
+    protected $casts = [
+        'is_approved' => 'boolean',
+    ];
+
+    public function post() : BelongsTo
     {
-        return $this->hasOne(Post::class);
+        return $this->belongsTo(Post::class);
     }
 
-    public function users(): HasMany
+    public function user() : BelongsTo
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 }
